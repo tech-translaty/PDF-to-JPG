@@ -39,6 +39,14 @@ jobs:
           # Make executable
           chmod +x "PDF to JPG.app/Contents/MacOS/PDFtoJPG"
 
+      - name: Ad-hoc sign the app
+        working-directory: macos
+        run: |
+          # Ad-hoc sign the app so it runs on modern macOS without "damaged" error
+          codesign --force --deep --sign - "PDF to JPG.app"
+          # Verify the signature
+          codesign --verify --verbose "PDF to JPG.app"
+
       - name: Create zip archive
         working-directory: macos
         run: |
