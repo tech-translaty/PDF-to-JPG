@@ -79,12 +79,20 @@ jobs:
             ## PDF to JPG - Download
 
             ### 🖥️ Windows
-            Download `PDF-to-JPG-Windows.zip`, extract, and run `PDF to JPG.exe`
+            1. Download `PDF-to-JPG-Windows.zip`
+            2. Extract the zip
+            3. Run `PDF to JPG.exe`
 
             ### 🍎 Mac
-            Download `PDF-to-JPG-Mac.zip`, extract, then:
-            - **First time only:** Right-click the app → "Open" → Click "Open" again
-            - After that, just double-click to run!
+            1. Download `PDF-to-JPG-Mac.zip`
+            2. Extract the zip
+            3. Open Terminal and run:
+               ```
+               xattr -cr ~/Downloads/PDF\ to\ JPG.app
+               ```
+            4. Double-click the app to run!
+
+            > ⚠️ The Terminal command removes the quarantine flag that macOS adds to downloaded files. This is required because the app is not signed with an Apple Developer certificate.
 
             ---
             *Built automatically on ${{ steps.date.outputs.date }}*
