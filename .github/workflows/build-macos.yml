@@ -1,4 +1,4 @@
-name: Build Windows Executable
+name: Build macOS App
 
 on:
   push:
@@ -8,53 +8,61 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build-macos:
+    runs-on: macos-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        working-directory: windows
+      - name: Build Swift app
+        working-directory: macos
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          swift build -c release
 
-      - name: Build executable with PyInstaller
-        working-directory: windows
+      - name: Create app bundle
+        working-directory: macos
         run: |
-          pyinstaller --onefile --windowed --name "PDF to JPG" main.py
+          # Create app bundle structure
+          mkdir -p "PDF to JPG.app/Contents/MacOS"
+          mkdir -p "PDF to JPG.app/Contents/Resources"
+          
+          # Copy executable
+          cp .build/release/PDFtoJPG "PDF to JPG.app/Contents/MacOS/PDF to JPG"
+          
+          # Copy Info.plist
+          cp Info.plist "PDF to JPG.app/Contents/"
+          
+          # Copy icon
+          cp AppIcon.icns "PDF to JPG.app/Contents/Resources/"
+          
+          # Make executable
+          chmod +x "PDF to JPG.app/Contents/MacOS/PDF to JPG"
 
       - name: Create zip archive
-        working-directory: windows
+        working-directory: macos
         run: |
-          Compress-Archive -Path "dist\PDF to JPG.exe" -DestinationPath "..\PDF-to-JPG-Windows.zip"
+          zip -r "../PDF-to-JPG-Mac.zip" "PDF to JPG.app"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PDF-to-JPG-Windows
-          path: PDF-to-JPG-Windows.zip
+          name: PDF-to-JPG-Mac
+          path: PDF-to-JPG-Mac.zip
           retention-days: 90
 
   create-release:
-    needs: build-windows
+    needs: build-macos
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
 
     steps:
-      - name: Download artifact
+      - name: Download macOS artifact
         uses: actions/download-artifact@v4
         with:
-          name: PDF-to-JPG-Windows
+          name: PDF-to-JPG-Mac
           path: ./release
 
       - name: Get current date
@@ -80,7 +88,7 @@ jobs:
             ---
             *Built automatically on ${{ steps.date.outputs.date }}*
           files: |
-            ./release/PDF-to-JPG-Windows.zip
+            ./release/PDF-to-JPG-Mac.zip
           draft: false
           prerelease: false
         env:

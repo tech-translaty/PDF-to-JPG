@@ -1,64 +1,62 @@
 # PDF to JPG
 ### by Camilo Hernandez
 
-A simple, modern PDF to JPG converter available for both **macOS** and **Windows**.
+A simple, modern PDF to JPG converter for **Windows** and **Mac**.
 
 ---
 
 ## 📥 Download
 
-| Platform | Download |
-|----------|----------|
-| **Windows** | [Download from Releases](../../releases) |
-| **macOS** | Build from source (see below) |
+Go to the **[Releases Page](../../releases/latest)** and download:
+
+| Your Computer | Download This |
+|---------------|---------------|
+| **Windows** | `PDF-to-JPG-Windows.zip` |
+| **Mac** | `PDF-to-JPG-Mac.zip` |
+
+---
+
+## 🖥️ Windows Instructions
+
+1. Download `PDF-to-JPG-Windows.zip`
+2. Right-click the zip → **Extract All**
+3. Open the extracted folder
+4. Double-click **`PDF to JPG.exe`** to run!
+
+---
+
+## 🍎 Mac Instructions
+
+1. Download `PDF-to-JPG-Mac.zip`
+2. Double-click the zip to extract it
+3. **First time only** (one-time security step):
+   - Right-click on **`PDF to JPG`** app
+   - Click **"Open"**
+   - Click **"Open"** again in the popup
+4. After that, just double-click to run!
+
+> **Why the extra step?** The app isn't from the App Store, so Mac asks you to confirm it's safe the first time. You only need to do this once!
 
 ---
 
 ## ✨ Features
 
-- **Modern UI** - Clean, professional interface
-- **Dark Mode** - Follows system theme
-- **Drag & Drop** - Drop PDF files directly
-- **Batch Processing** - Convert multiple PDFs at once
-- **Smart Naming** - Auto-names output folders
-- **High Quality** - 200 DPI, 80% JPEG quality
-- **Portable** - Single executable, no installation
+- 📄 **Convert PDFs to JPG** — High quality output
+- 🌙 **Dark Mode** — Follows your system theme
+- 📂 **Drag & Drop** — Just drop PDF files onto the app
+- 📑 **Batch Processing** — Convert multiple PDFs at once
+- 🎯 **Smart Naming** — Auto-names output folders
+- ⚡ **Portable** — No installation needed
 
 ---
 
 ## 📁 Project Structure
 
 ```
-PDF-to-JPG-App/
-├── macos/                  # macOS version (Swift/SwiftUI)
-│   ├── Sources/
-│   ├── Package.swift
-│   └── PDF to JPG.app
-├── windows/                # Windows version (Python/PySide6)
-│   ├── main.py
-│   └── requirements.txt
-└── .github/workflows/      # Auto-build Windows .exe
-```
-
----
-
-## 🔨 Building
-
-### Windows
-The Windows executable is **automatically built** by GitHub Actions.
-Just download from the [Releases page](../../releases).
-
-To build manually:
-```bash
-cd windows
-pip install -r requirements.txt
-pyinstaller --onefile --windowed --name "PDF to JPG" main.py
-```
-
-### macOS
-```bash
-cd macos
-swift build -c release
+PDF-to-JPG/
+├── macos/                  # Mac version (Swift)
+├── windows/                # Windows version (Python)
+└── .github/workflows/      # Auto-builds both versions
 ```
 
 ---
