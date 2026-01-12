@@ -29,13 +29,13 @@ Go to the **[Releases Page](../../releases/latest)** and download:
 
 1. Download `PDF-to-JPG-Mac.zip`
 2. Double-click the zip to extract it
-3. **Required step** — Open Terminal and run:
-   ```
-   xattr -cr ~/Downloads/PDF\ to\ JPG.app
-   ```
-4. Double-click the app to run!
+3. Double-click the app to run!
+4. **If blocked:** Right-click → "Open" → Click "Open"
 
-> **Why is Terminal needed?** The app isn't signed with an Apple Developer certificate, so macOS blocks it by default. The `xattr` command removes this restriction.
+> **Still seeing "damaged" error?** Run in Terminal:
+> ```bash
+> xattr -cr ~/Downloads/PDF\ to\ JPG.app
+> ```
 
 ---
 

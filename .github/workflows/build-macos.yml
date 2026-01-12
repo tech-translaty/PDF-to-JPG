@@ -94,13 +94,10 @@ jobs:
             ### 🍎 Mac
             1. Download `PDF-to-JPG-Mac.zip`
             2. Extract the zip
-            3. Open Terminal and run:
-               ```
-               xattr -cr ~/Downloads/PDF\ to\ JPG.app
-               ```
-            4. Double-click the app to run!
+            3. Double-click the app to run
+            4. **If blocked:** Right-click → "Open" → Click "Open"
 
-            > ⚠️ The Terminal command removes the quarantine flag that macOS adds to downloaded files. This is required because the app is not signed with an Apple Developer certificate.
+            > 💡 **Still seeing "damaged" error?** Run: `xattr -cr ~/Downloads/PDF\ to\ JPG.app`
 
             ---
             *Built automatically on ${{ steps.date.outputs.date }}*
