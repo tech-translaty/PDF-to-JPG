@@ -576,6 +576,7 @@ class MainWindow(QMainWindow):
         self.worker = None
         self.worker_thread = None
         self.progress_rows = []
+        self.show_all_files = False  # For expandable queue list
         
         # Load saved destination
         settings = load_settings()
@@ -698,10 +699,32 @@ class MainWindow(QMainWindow):
             self.queue_layout = QVBoxLayout()
             self.queue_layout.setSpacing(8)
             
-            for i, item in enumerate(self.job.pdf_items):
-                row = PDFQueueRow(item, i)
+            # Show limited items or all based on state
+            max_visible = 5
+            items_to_show = self.job.pdf_items if self.show_all_files else self.job.pdf_items[:max_visible]
+            hidden_count = len(self.job.pdf_items) - max_visible
+            
+            for i, item in enumerate(items_to_show):
+                actual_index = i  # Index in the full list
+                row = PDFQueueRow(item, actual_index)
                 row.remove_clicked.connect(self.remove_pdf)
                 self.queue_layout.addWidget(row)
+            
+            # Show More button (when collapsed and there are hidden items)
+            if hidden_count > 0 and not self.show_all_files:
+                show_more_btn = QPushButton(f"▼ Show {hidden_count} more file{'s' if hidden_count != 1 else ''}")
+                show_more_btn.setObjectName("expandButton")
+                show_more_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+                show_more_btn.clicked.connect(self.expand_queue)
+                self.queue_layout.addWidget(show_more_btn)
+            
+            # Show Less button (when expanded)
+            if self.show_all_files and hidden_count > 0:
+                show_less_btn = QPushButton("▲ Show less")
+                show_less_btn.setObjectName("collapseButton")
+                show_less_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+                show_less_btn.clicked.connect(self.collapse_queue)
+                self.queue_layout.addWidget(show_less_btn)
             
             queue_card.add_layout(self.queue_layout)
             
@@ -915,6 +938,30 @@ class MainWindow(QMainWindow):
                 border: none;
             }}
             
+            #expandButton {{
+                background-color: rgba(83, 157, 219, 0.1);
+                color: {Theme.brand_blue()};
+                border: 1px solid rgba(83, 157, 219, 0.3);
+                border-radius: 8px;
+                padding: 12px;
+                font-weight: 500;
+            }}
+            
+            #expandButton:hover {{
+                background-color: rgba(83, 157, 219, 0.2);
+            }}
+            
+            #collapseButton {{
+                background-color: transparent;
+                color: {Theme.text_secondary()};
+                border: none;
+                padding: 8px;
+            }}
+            
+            #collapseButton:hover {{
+                color: {Theme.text_primary()};
+            }}
+            
             QLabel {{
                 color: {Theme.text_primary()};
             }}
@@ -1014,6 +1061,17 @@ class MainWindow(QMainWindow):
     def clear_pdfs(self):
         """Clear all PDFs from the queue."""
         self.job.pdf_items.clear()
+        self.show_all_files = False
+        self.show_setup_view()
+    
+    def expand_queue(self):
+        """Expand the queue to show all files."""
+        self.show_all_files = True
+        self.show_setup_view()
+    
+    def collapse_queue(self):
+        """Collapse the queue to show only 5 files."""
+        self.show_all_files = False
         self.show_setup_view()
     
     def update_start_button(self):
