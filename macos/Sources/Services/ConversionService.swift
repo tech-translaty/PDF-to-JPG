@@ -11,8 +11,8 @@ struct ConversionService {
     /// Default DPI for rendering (200 DPI - balanced for screen & print)
     static let defaultDPI: CGFloat = 200
     
-    /// Default JPG compression quality (80% - optimal balance of size & quality)
-    static let defaultQuality: CGFloat = 0.80
+    /// Default JPG compression quality (75% - matches Windows output size)
+    static let defaultQuality: CGFloat = 0.75
     
     /// Renders a PDF page to a CGImage
     /// - Parameters:

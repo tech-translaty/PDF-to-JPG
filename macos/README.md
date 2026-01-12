@@ -65,8 +65,8 @@ Your_Job_Name/
 
 | Setting | Value |
 |---------|-------|
-| Output DPI | 300 (print quality) |
-| JPG Quality | 92% |
+| Output DPI | 200 (balanced) |
+| JPG Quality | 75% |
 | Page Numbering | Zero-padded (001, 002...) |
 
 ## License
