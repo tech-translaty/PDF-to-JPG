@@ -698,16 +698,10 @@ class MainWindow(QMainWindow):
             self.queue_layout = QVBoxLayout()
             self.queue_layout.setSpacing(8)
             
-            for i, item in enumerate(self.job.pdf_items[:5]):
+            for i, item in enumerate(self.job.pdf_items):
                 row = PDFQueueRow(item, i)
                 row.remove_clicked.connect(self.remove_pdf)
                 self.queue_layout.addWidget(row)
-            
-            if len(self.job.pdf_items) > 5:
-                more_label = QLabel(f"+ {len(self.job.pdf_items) - 5} more files")
-                more_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-                more_label.setObjectName("secondaryText")
-                self.queue_layout.addWidget(more_label)
             
             queue_card.add_layout(self.queue_layout)
             
