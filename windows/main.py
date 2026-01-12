@@ -409,7 +409,7 @@ class PDFDropZone(QFrame):
         super().__init__(parent)
         self.setAcceptDrops(True)
         self.setObjectName("dropZone")
-        self.setMinimumHeight(120)
+        self.setFixedHeight(150)  # Fixed height to prevent compression
         
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
