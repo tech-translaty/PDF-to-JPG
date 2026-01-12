@@ -629,11 +629,16 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.content_area, stretch=1)
     
     def clear_content(self):
-        """Clear the content area."""
-        while self.content_layout.count():
-            item = self.content_layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
+        """Clear the content area including nested layouts."""
+        def clear_layout(layout):
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+                elif item.layout():
+                    clear_layout(item.layout())
+        
+        clear_layout(self.content_layout)
     
     def show_setup_view(self):
         """Show the setup/configuration view."""
