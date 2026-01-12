@@ -29,13 +29,16 @@ Go to the **[Releases Page](../../releases/latest)** and download:
 
 1. Download `PDF-to-JPG-Mac.zip`
 2. Double-click the zip to extract it
-3. Double-click the app to run!
-4. **If blocked:** Right-click → "Open" → Click "Open"
+3. Double-click the app
+4. **First time only** (one-time security step):
+   - Click **"Done"** on the warning popup
+   - Go to **System Settings → Privacy & Security**
+   - Scroll to **Security** section
+   - Click **"Open Anyway"** next to "PDF to JPG was blocked"
+   - Enter your password
+5. The app will now open and work forever!
 
-> **Still seeing "damaged" error?** Run in Terminal:
-> ```bash
-> xattr -cr ~/Downloads/PDF\ to\ JPG.app
-> ```
+> **Why this step?** The app isn't notarized by Apple (requires $99/year developer account). This is a one-time step per Mac.
 
 ---
 

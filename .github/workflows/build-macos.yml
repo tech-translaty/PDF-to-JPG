@@ -94,10 +94,13 @@ jobs:
             ### 🍎 Mac
             1. Download `PDF-to-JPG-Mac.zip`
             2. Extract the zip
-            3. Double-click the app to run
-            4. **If blocked:** Right-click → "Open" → Click "Open"
-
-            > 💡 **Still seeing "damaged" error?** Run: `xattr -cr ~/Downloads/PDF\ to\ JPG.app`
+            3. Double-click the app
+            4. **First time only:**
+               - Click "Done" on the warning
+               - Go to **System Settings → Privacy & Security**
+               - Click **"Open Anyway"**
+               - Enter your password
+            5. The app works forever after this!
 
             ---
             *Built automatically on ${{ steps.date.outputs.date }}*
