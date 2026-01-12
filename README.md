@@ -37,6 +37,12 @@ Go to the **[Releases Page](../../releases/latest)** and download:
 
 > **Why the extra step?** The app isn't from the App Store, so Mac asks you to confirm it's safe the first time. You only need to do this once!
 
+> **If you see "damaged or incomplete" error:** Open Terminal and run:
+> ```
+> xattr -cr ~/Downloads/PDF\ to\ JPG.app
+> ```
+> Then try opening the app again.
+
 ---
 
 ## ✨ Features

@@ -27,8 +27,8 @@ jobs:
           mkdir -p "PDF to JPG.app/Contents/MacOS"
           mkdir -p "PDF to JPG.app/Contents/Resources"
           
-          # Copy executable
-          cp .build/release/PDFtoJPG "PDF to JPG.app/Contents/MacOS/PDF to JPG"
+          # Copy executable (name must match CFBundleExecutable in Info.plist)
+          cp .build/release/PDFtoJPG "PDF to JPG.app/Contents/MacOS/PDFtoJPG"
           
           # Copy Info.plist
           cp Info.plist "PDF to JPG.app/Contents/"
@@ -37,12 +37,13 @@ jobs:
           cp AppIcon.icns "PDF to JPG.app/Contents/Resources/"
           
           # Make executable
-          chmod +x "PDF to JPG.app/Contents/MacOS/PDF to JPG"
+          chmod +x "PDF to JPG.app/Contents/MacOS/PDFtoJPG"
 
       - name: Create zip archive
         working-directory: macos
         run: |
-          zip -r "../PDF-to-JPG-Mac.zip" "PDF to JPG.app"
+          # Use ditto to preserve macOS app bundle structure and permissions
+          ditto -c -k --sequesterRsrc --keepParent "PDF to JPG.app" "../PDF-to-JPG-Mac.zip"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
