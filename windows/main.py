@@ -602,6 +602,7 @@ class MainWindow(QMainWindow):
         # Title bar
         title_bar = QFrame()
         title_bar.setObjectName("titleBar")
+        title_bar.setMinimumHeight(80)  # Prevent collapse on Windows
         title_layout = QHBoxLayout(title_bar)
         title_layout.setContentsMargins(24, 20, 24, 20)
         
