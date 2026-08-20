@@ -5,6 +5,15 @@
       "Bash(git push -f *)",
       "Bash(git push --force)",
       "Bash(git push -f)"
+    ],
+    "allow": [
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "NotebookEdit"
     ]
   },
   "hooks": {
